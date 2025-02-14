@@ -1,4 +1,5 @@
 # skill_sync
+<<<<<<< HEAD
 
 A new Flutter project.
 
@@ -14,3 +15,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+Um aplicativo para acessar os treinamentos de uma empresa ou setor.
+>>>>>>> 88d1d6b771219bdd1c1738dbd98e7218035dccea
