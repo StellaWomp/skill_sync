@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'LoginPage.dart';
+
 class Recoverlogin extends StatefulWidget {
   const Recoverlogin({super.key});
 
@@ -57,8 +59,10 @@ class _Recoverlogin extends State<Recoverlogin> {
               onPressed: () {
                 if (mounted) {
                   Navigator.of(context).pop(); // Fecha o diálogo
-                  Navigator.of(context).pushNamed('/'); // Redireciona para a tela de login
-                }
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => LoginPage()), // Substitua "LoginScreen" pela sua tela de login
+                        (Route<dynamic> route) => false, // Remove todas as rotas anteriores
+                  );                  }
               },
               child: Text('OK'),
             ),

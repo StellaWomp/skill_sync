@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:skill_sync/pages/AccessCourses.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
+import '../models/login.dart';
+import '../services/auth_service.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -8,6 +14,43 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPage extends State<LoginPage> {
+  final TextEditingController _username = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+
+  bool _isLoading = false;
+
+  final AuthService _authService = AuthService();
+
+  void _login() async {
+    if (_username.text.isEmpty || _password.text.isEmpty) {
+     print('login');
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    final login = Login(
+      username: _username.text,
+      password: _password.text,
+    );
+
+    bool success = await _authService.login(login);
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (success) {
+     print( "Login bem-sucedido!");
+      // Redirecionar para a tela principal ou página desejada
+     Navigator.of(context).pushReplacementNamed('/second');
+    } else {
+     print("Erro no login. Verifique seus dados.");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,112 +61,107 @@ class _LoginPage extends State<LoginPage> {
       ),
       body: Container(
         padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                'SkillSync',
-                style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Homenaje'),
-              ),
-              SizedBox(height: 15),
-              Container(
-                child: Image.asset(
-                  'imagens/imagem tela login - skill_sync.png',
-                  width: 100,
-                  height: 100,
+        child: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Escolas Conectadas',
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Homenaje'),
                 ),
-              ),
-
-              const Text(
-                'Bem-vindo(a)!',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              //const SizedBox(height: 30),
-
-              //Caixas de Login
-              SizedBox(
-                width: 290,
-                child: TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    //border: OutlineInputBorder(),
+                SizedBox(height: 10),
+                Container(
+                  child: Image.asset(
+                    'imagens/nbn.png',
+                    width: 100,
+                    height: 100,
                   ),
                 ),
-              ),
-              SizedBox(height: 25),
-              SizedBox(
-                width: 290,
-                child: TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    //border: OutlineInputBorder(),
-                  ),
+
+                const Text(
+                  'Bem-vindo(a)!',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-              ),
-              SizedBox(height: 25),
-              //Botão entrar
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/second');
-                },
-                child: const Text('Entrar'),
-              ),
-              //Esqueceu a senha
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      // Navegando para a tela de recuperação de senha
-                      Navigator.of(context).pushNamed('/third');
-                    },
-                    child: Text(
-                      'Esqueceu a senha?',
-                      style: TextStyle(
-                        color: Colors
-                            .blue, // Deixe o texto com cor para parecer um link
-                        decoration:
-                            TextDecoration.underline, // Adiciona o sublinhado
-                      ),
+                //const SizedBox(height: 30),
+                SizedBox(height: 10),
+                //Caixas de Login
+                SizedBox(
+                  width: 290,
+                  child: TextField(
+                    controller: _username,
+                    decoration: InputDecoration(
+                      labelText: 'Email',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.black12,
+                              width: 1.8,
+                            )
+                        )
                     ),
-                  )
-                ],
-              ),
-              SizedBox(height: 20),
-              //Cadastre-se
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Ainda não possui uma conta?  ',
-                      style: TextStyle(
-                        color: Colors.black,
-                      )),
-                  Row(children: [
+                  ),
+                ),
+                SizedBox(height: 25),
+                SizedBox(
+                  width: 290,
+                  child: TextField(
+                    obscureText: true,
+                    controller: _password,
+                    decoration: InputDecoration(
+
+                      labelText: 'Password',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black12,
+                          width: 1.8,
+                        )
+                      )
+                    ),
+                  ),
+                ),
+                SizedBox(height: 1),
+                //Esqueceu a senha
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
                     TextButton(
                       onPressed: () {
                         // Navegando para a tela de recuperação de senha
-                        Navigator.of(context).pushNamed('/fourth');
+                        Navigator.of(context).pushNamed('/third');
                       },
                       child: Text(
-                        'Registre-se?',
+                        'Esqueceu a senha?',
                         style: TextStyle(
-                          color: Colors.black, // Deixe o texto com cor para parecer um link
+                          color: Colors.blue, // Deixe o texto com cor para parecer um link
                           decoration:
-                          TextDecoration.underline, // Adiciona o sublinhado
-                          fontWeight: FontWeight.bold,// Adiciona o negrito
+                          TextDecoration.underline,
+                          decorationColor: Colors.blue,// Adiciona o sublinhado
+
                         ),
                       ),
                     )
-                  ]
-                  ),
-                ],
-              )
-            ],
+                  ],
+                ),
+                SizedBox(height: 25),
+                //Botão entrar
+                ElevatedButton(
+                  onPressed: _login/*() {
+                    Navigator.of(context).pushReplacementNamed('/second');
+                  }*/,
+                  child: const Text('Entrar'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

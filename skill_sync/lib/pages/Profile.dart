@@ -81,41 +81,74 @@ class _Profile extends State<Profile> {
               SizedBox(height: 16),
 
               // Nome e informações do usuário
-              Text(
-                'Nome do Usuário',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  //Nome do Usuário
+                  Text(
+                    'Nome do Usuário',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+
+                  ),
+                  Icon(Icons.edit, size: 30),
+                ],
               ),
               SizedBox(height: 8),
+              //Email institucional
               Text(
                 'Email institucional',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),
-              Text(
-                'Telefone',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              //Telefone
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Telefone',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+
+                  ),
+                  Icon(Icons.edit, size: 30),
+                ],
               ),
               SizedBox(height: 8),
+              //Departamento
               Text(
                 'Departamento',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),
-              Text(
-                'Cargo',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              //Cargo
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Cargo',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+
+                  ),
+                  Icon(Icons.edit, size: 30),
+                ],
               ),
               SizedBox(height: 8),
+              //Inicio da atividade
               Text(
                 'Inicio da atividade',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),
-
               // Alterar a senha
-              Text(
-                'Alterar a senha',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Alterar a senha',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+
+                  ),
+                  Icon(Icons.edit, size: 30),
+                ],
               ),
               SizedBox(height: 25),
 
